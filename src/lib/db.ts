@@ -15,7 +15,7 @@ export interface JoinRequest {
 
 export async function initDb() {
   const db = env.DB
-  await db.exec(`
+  await db.prepare(`
     CREATE TABLE IF NOT EXISTS join_requests (
       id TEXT PRIMARY KEY,
       chat_id INTEGER NOT NULL,
@@ -27,10 +27,10 @@ export async function initDb() {
       agreed_to_terms INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-    CREATE INDEX IF NOT EXISTS idx_chat_user ON join_requests(chat_id, user_id);
-    CREATE INDEX IF NOT EXISTS idx_query ON join_requests(query_id);
-  `)
+    )
+  `).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_chat_user ON join_requests(chat_id, user_id)`).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_query ON join_requests(query_id)`).run()
   return db
 }
 
