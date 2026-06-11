@@ -14,7 +14,7 @@
     {
       "binding": "DB",
       "database_name": "onboarding-bot",
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+      "database_id": "b1f86df0-47cd-42c7-9002-22af58873993"
     }
   ]
 }
